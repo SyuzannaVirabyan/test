@@ -1,0 +1,63 @@
+{% extends 'admin_layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="tabs is-centered">
+        <ul>
+            {% for i in status %}
+            <li>
+                <a href="{% url 'staff:home' %}?status={{i.0}}">
+                    <div class="title is-6">
+                        {{i.0}}
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<section class="section">
+    <div class="container">
+        <div class="title">Заказы</div>
+        <div class="columns is-multiline">
+            {% for order in orders %}
+            <div class="column is-3">
+                <div class="box">
+                    <div class="title is-5 has-text-centered">
+                        Заказ #{{order.pk}}
+                        <span class="tag is-medium is-success">
+                            {{order.status}}
+                        </span>
+                    </div>
+                    <div class="subtitle">
+                        Покупатель:
+                        <span class="is-italic has-text-weight-bold">
+                            {{ order.customer }}
+                        </span>
+                    </div>
+                    <a href="{% url 'staff:order' order.pk %}" class="button is-fullwidth">
+                        Перейти
+                    </a>
+                    <!-- <div class="subtitle">
+                        Товары
+                        <span>{{ order.order_products.count }}</span> -->
+                    <!-- </div> --> 
+                    <!-- <ul>
+                        {% for product in order.order_products.all %}
+                        <li>
+                            <a href="{% url 'store:product' product.pk %}">
+                                {{product}}
+                            </a>
+                            <span class="ml-4">
+                                {{product.amount}} шт
+                            </span>
+                        </li>
+                        {% endfor %}
+                    </ul> -->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

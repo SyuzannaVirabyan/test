@@ -1,0 +1,40 @@
+{% extends 'admin_layout.html' %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-6">
+                <form method="post" class="product-form">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {% if field.name == 'category' or field.name == 'brand' %}
+                    <label for="{{field.id_for_label}}" class="checkbox">
+                        {{field.label}}
+                    </label>
+                    {% else %}
+                    <div class="field">
+                        <label for="{{field.id_for_label}}" class="label">
+                            {{field.label}}
+                        </label>
+                        <div class="control">{{field}} </div>
+                    </div>
+                    {% endif %}
+                    <ul>
+                        {% for errors in form.errors.values %}
+                        <li class="has-text-danger">{{error}}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                {% endfor %}
+                <div class="has-text-centered">
+                    <button class="button is-info is-fullwidth">
+                        Добавить товар
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
